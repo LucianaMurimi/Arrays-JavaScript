@@ -1,0 +1,288 @@
+<!--ARRAYS
+=======================================
+ADD/ REMOVE ITEMS
+
+arr.push(...items) - adds items to the end
+arr.pop() - extracts an item from the end
+arr.shift() - extracts an item from the beginning
+arr.unshift(...items) - adds itemsto the beginning 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    /* some data to work with*/
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+    /*=======================================
+    LENGTH OF AN ARRAY*/
+    const inventorsLength = inventors.length;
+    console.log(`Length of arr inventors: ${inventorsLength}`);     /*12*/
+    /*`inventors` is an array of 12 objects. Each object having 4 properties(i.e: first, last, year and passed)*/
+
+
+    /*=======================================
+    SPLICE
+    arr.splice method is used to: INSERT, REMOVE, AND REPLACE elements in an array.
+    1. deletion:
+    */
+    const inventorsSpliceDelete = inventors.splice(1, 6);   /*from index 1, remove 6 elements, then store the result in `inventors10`*/
+    console.table(inventorsSpliceDelete);
+    console.table(inventors);   /*has the remaining 6 elements after splicing*/
+
+    /*2. replacing*/
+    const inventorsSpliceReplace = inventors.splice(0, 3, {first: 'Keropa', last: 'Marwa', year: 1879, passed: 1955}, { first: 'Kenega', last: 'Chacha', year: 1564, passed: 1642 });
+    console.table(inventorsSpliceReplace);
+    console.table(inventors);   /*has the modified array; with three removed elements and two added elements*/
+    /*for this replacing example: starting at index 0, three elements have been removed, and replaced with other two objects.*/
+
+    /*3. inserting elements without removal*/
+    /*the `deleteCount` is set to 0*/
+    inventors.splice(2, 0, {first: 'Jane', last: 'Nyagonchera', year: 1879, passed: 1955}, { first: 'Karen', last: 'Boke', year: 1564, passed: 1642 });
+    console.table(inventors);
+
+    /*=======================================
+    SLICE
+    syntax: arr.slice([start], [end])
+
+    slice returns a new array, copying to it all items frim index `start` to `end`(not including end).
+    */
+    inventorsSlice = inventors.slice(1, 5);   /*copies from 1 to 5(but not including 5)*/
+    console.table(inventorsSlice);
+    inventorsSliceNegative = inventors.slice(-2); /*copies from -2( 2 steps from the end) till the end*/
+    console.table(inventorsSliceNegative);
+
+    /*when slice is called without arguments say arr.slice() ;it creates a copy of arr. This method is usually used to obtain a copy for further transormations that should not affect the original array*/
+
+    /*=======================================
+    CONCAT
+    syntax: arr.concat(arg1, arg2...)
+
+    arr.concat method creates a new array that includes values from other arrays and additional items.*/
+    /*=======================================
+    ITERATION
+    1.forEach
+    syntax:
+    arr.forEach(function(item, index, array){
+    ...do smth with item
+    });
+
+    2.for ... of ...
+    syntax:
+    for (item of arr) {
+    ...do smth with item
+    }
+
+    3.for
+    syntax:
+    for(let i=0; i<arr.length; i++){
+    ...do smth with arr[i]
+    }
+    */
+    ["Luc", "Mary", "Mercy", "Ojowi"].forEach((item, index, array) => {
+      console.log(`${item} is at index ${index} in ${array}`);
+    });
+
+    /*=======================================
+    SEARCHING IN AN ARRAY
+    1. arr.indexOf(item, from) - looks for `item` starting from index `from`, and returns the indexx where it was found, otherwise -1.
+
+    2. arr.lastIndexOf(item, from) - same, but looks for from right to left.
+
+    3. arr.includes(item, from) - looks for `item` starting from index `from` returns true if found.
+
+
+    4.arr.find(fn) - used to scan an array of objects to find an object with a specific condition.
+    syntax:
+    let result = arr find(function(item, index, array){
+      //if true is returned, item is returned and iteration is stopped
+      //for falsy scenario returns undefined
+    });
+    
+    5. arr.findIndex method is essentially the same, but it returns the index where the element was found instead of the element itself and -1 is returned when nothing is found.
+    */
+    let users = [
+      {id: 1, name:"Luciana"},
+      {id: 2, name:"Marie"},
+      {id: 3, name:"Mercy"}
+    ];
+
+    let user = users.find(item => item.name == "Luciana");
+    console.log(user);
+
+    /*=======================================
+    FILTER
+    The find method looks for a single(first) element that makes the function return true.
+
+    If there may be many, `arr.filter(fn)` is used. It returns an array of of all matching elements.
+
+    syntax:
+    let results = arr.filter(function(item, index, array){
+      //if true, the item is pushed to results and the iteration continues.
+      //returns empty array if nothing is found
+    })
+    
+    Filter the list of inventors for those who were born in the 1500's*/
+    let inventors_1500s = inventors.filter(item => item.year >= 1500 && item.year <=1599);
+    console.table(inventors_1500s);
+
+    /*=======================================
+    TRANSFORMING AN ARRAY
+    1. MAP
+    arr.map() : it calls the function for each element of the array and returns the array of results.
+    
+    Give us an array of the inventors first and last names*/
+    const inventors_names = inventors.map(item => [item.first, item.last]);
+    console.log(inventors_names);
+
+    /*
+    2. SORT
+    arr.sort() : sort the array in place, changing its elements order.
+    */
+    function compare(a, b) {
+      if (a > b) return 1; //if the first value is greater than the second
+      if (a == b) return 0; //if values are equal
+      if (a< b) return -1; //if the first value is less  than the second
+    }
+    arrSort = [6, 2, 4, 9, 3, 6, 7, 10, 12, 1].sort(compare);
+    console.log(arrSort);
+
+    /*Sorting an array objects
+    Sort the inventors by birthdate, oldest to youngest*/
+    function compareValue(a, b) {
+      let comparison = 0;
+
+      var birthDateA = a.year;
+      var birthDateB = b.year;
+
+      if(birthDateA > birthDateB) {
+        comparison = 1;
+      }
+      else if (birthDateA < birthDateB) {
+        comparison = -1;
+      }
+      return comparison
+    }
+    console.table(inventors);
+    inventors.sort(compareValue);
+    console.table(inventors);
+
+    /*Comparing Strings*/
+    function compareString(a, b) {
+      /*Use toUpperCase() to ignore character casing*/
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      let comparison = 0;
+      if(nameA > nameB) {
+        comparison = 1;
+      }else if(nameA < nameB) {
+        comparison = -1;
+      }
+
+      return comparison;
+    }
+
+    /*REVERSE
+    arr.reverse() reverses the order of elements in arr.
+    */
+
+    /*
+    SPLIT and JOIN
+    */
+    let names = 'Bilbo, Gandalf, Nazgul';
+
+    let arr = names.split(', ');
+
+    console.log(arr);
+    for (let item of arr) {
+      console.log(`A message to ${item}.`);
+    }
+    /*Split into letters
+    The call to split(s) with an empty s would split the string into an array of letters i.e:
+    
+    let str = "test";
+    alert(str.split('')); //t,e,s,t
+    */
+
+    /*JOIN
+    arr.join(glue) does the reverse to split. It creates a string of arr items joined by glue between them.
+
+    let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+    let str = arr.join(';');  //glue the array into a string using ;
+    alert(str);   //Bilbo;Gandalf;Nazgul
+    */
+
+    /*REDUCE and REDUCERIGHT
+    arr.reduce and arr.reduceRight are used to calculate a single value based on the array.
+    syntax:
+    let value = arr.reduce(function(accumulator, item, index, array) {
+    
+    }, [initial]);
+    
+    How many years did all the inventors live all together
+    */
+    const inventors_years = inventors.reduce((accumulator, item) => accumulator + (item.passed-item.year), 0);
+    console.log(inventors_years);
+
+
+    /*
+    TASK 1
+    Write the function camelize(str) that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
+    i.e. removes all dashes, each word after dash becomes uppercased.  
+    string.charAt(0).toUpperCase();
+    */
+
+    /*
+    TASK 2
+    Write a function filterRange(arr, a, b) that gets an array "arr", looks for elements between a and b in it and returns an array of them.
+    The function should not modify the array. It should return the new array
+
+    example:
+    let arr = [5, 3, 8, 1];
+
+    let filtered = filterRange(arr, 1, 4);
+
+    alert(filtered); //3,1 (matching values)
+    alert(arr);  //5,3,8,1 (not modified)
+    */
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+
+    /*Sorting*/
+    /*Sort the people alphabetically by last name*/
+    
+    
+    
+
+    // 5. Sort the inventors by years lived
+
+    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+
+    
+
+    // 8. Reduce Exercise
+    // Sum up the instances of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+  </script>
+</body>
+</html>
